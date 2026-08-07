@@ -1,33 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:hello/features/auth/signup_page.dart';
+import 'package:hello/core/widgets/my_textfield.dart';
+import 'package:hello/features/auth/login_page.dart';
 import 'package:hello/features/dashboard/dashboard_page.dart';
-import '../../core/widgets/my_textfield.dart';
-// ignore: unused_import
-import '../../core/widgets/my_button.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class SignUpPage extends StatelessWidget {
+  SignUpPage({super.key});
 
+  final nameController = TextEditingController();
+  final surnameController = TextEditingController();
   final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
-  /*void signUserIn() {
-    debugPrint('Signing in...');
-    Navigator.push(
-    context, 
-    MaterialPageRoute(builder: (context) => DashboardPage(),
-    )
-    );
-  }*/
-
-  void signUserUp() {
-    debugPrint('Signing up...');
-  }
+  final secondPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 230, 255, 233),
+      backgroundColor: Color.fromARGB(255, 230, 255, 233),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
@@ -42,55 +31,61 @@ class LoginPage extends StatelessWidget {
                   height: 200,
                 ),
 
-                const SizedBox(height: 25),
-
-                //welcome text
-                Text(
-                  'Welcome back, it\'s good to see you again!',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 0, 95, 0),
-                    fontSize: 16,
-                  ),
+                //name
+                MyTextfield(
+                  controller: nameController,
+                  hintText: 'Name',
+                  obscureText: false,
                 ),
 
                 const SizedBox(height: 15),
 
-                //username textfield
+                //surname
+                MyTextfield(
+                  controller: surnameController,
+                  hintText: 'Surname',
+                  obscureText: false,
+                ),
+
+                const SizedBox(height: 15),
+
+                //username
                 MyTextfield(
                   controller: usernameController,
                   hintText: 'Username',
                   obscureText: false,
                 ),
 
-                const SizedBox(height: 10),
+                const SizedBox(height: 15),
 
-                //password textfield
+                //email
+                MyTextfield(
+                  controller: emailController,
+                  hintText: 'Email',
+                  obscureText: false,
+                ),
+
+                const SizedBox(height: 15),
+
+                //password
                 MyTextfield(
                   controller: passwordController,
                   hintText: 'Password',
                   obscureText: true,
                 ),
 
-                //forgot password text
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          debugPrint('Forgot Password button pressed');
-                        },
-                        child: Text(
-                          'Forgot Password?',
-                          style: TextStyle(color: Colors.grey[600]),
-                        ),
-                      ),
-                    ],
-                  ),
+                const SizedBox(height: 15),
+
+                //password again
+                MyTextfield(
+                  controller: secondPasswordController,
+                  hintText: 'Password Again',
+                  obscureText: true,
                 ),
 
-                //login button
+                const SizedBox(height: 15),
+
+                //signup button
                 ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -98,11 +93,12 @@ class LoginPage extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => DashboardPage()),
                     );
                   },
-                  child: const Text("Login"),
+                  child: const Text('Sign Up'),
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 25),
 
+                //already have an account?
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Row(
@@ -112,9 +108,9 @@ class LoginPage extends StatelessWidget {
                       ),
 
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
                         child: Text(
-                          ' Don\'t have an account? ',
+                          'Already have an account?',
                           style: TextStyle(color: Colors.grey[700]),
                         ),
                       ),
@@ -126,18 +122,20 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 25),
 
+                //Login Button
                 ElevatedButton(
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => SignUpPage()),
+                      MaterialPageRoute(builder: (context) => LoginPage()),
                     );
                   },
-                  child: const Text("Sign Up"),
+                  child: const Text("Login"),
                 ),
-                //not a member? register now text
+
+                const SizedBox(height: 25),
               ],
             ),
           ),
