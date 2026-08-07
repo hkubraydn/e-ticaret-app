@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:hello/features/auth/signup_page.dart';
 import 'package:hello/features/dashboard/dashboard_page.dart';
 import '../../core/widgets/my_textfield.dart';
 // ignore: unused_import
 import '../../core/widgets/my_button.dart';
+import '../../data/seed/user_seed.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -93,10 +95,32 @@ class LoginPage extends StatelessWidget {
                 //login button
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => DashboardPage()),
-                    );
+                    final username = usernameController.text;
+                    final password = passwordController.text;
+
+                    bool found = false;
+
+                    for (var user in seedUsers) {
+                      if (user.username == username &&
+                          user.password == password) {
+                        found = true;
+                        break;
+                      }
+                    }
+                    if (found) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DashboardPage(),
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("kullanıcı adı veya şifre yanlış"),
+                        ),
+                      );
+                    }
                   },
                   child: const Text("Login"),
                 ),
