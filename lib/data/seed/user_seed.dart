@@ -1,34 +1,6 @@
-import 'package:flutter/material.dart';
+import '../models/user_model.dart';
 
-class SeedUser {
-  final String username;
-  final String name;
-  final String surname;
-  final String email;
-  final String password;
-
-  SeedUser({
-    required this.username,
-    required this.name,
-    required this.surname,
-    required this.email,
-    required this.password,
-  });
-}
-
-final List<SeedUser> seedUsers = [
-  SeedUser(
-    username: "admin1",
-    name: "Admin",
-    surname: "User",
-    email: "admin@test.com",
-    password: "123456",
-  ),
-  SeedUser(
-    username: "admin2",
-    name: "Hatice",
-    surname: "Aydın",
-    email: "hatice@gmail.com",
-    password: "123456",
-  ),
+final List<UserModel> seedUsers = [
+  UserModel(id: 1, username: "Hatice", userTitle: "admin", password: "123456"),
+  UserModel(id: 2, username: "Kübra", userTitle: "admin2", password: "123456"),
 ];

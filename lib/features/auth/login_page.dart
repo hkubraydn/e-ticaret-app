@@ -1,30 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:hello/features/auth/signup_page.dart';
 import 'package:hello/features/dashboard/dashboard_page.dart';
 import '../../core/widgets/my_textfield.dart';
 // ignore: unused_import
 import '../../core/widgets/my_button.dart';
 import '../../data/seed/user_seed.dart';
+import '../../core/validators/user_validator.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
-
-  /*void signUserIn() {
-    debugPrint('Signing in...');
-    Navigator.push(
-    context, 
-    MaterialPageRoute(builder: (context) => DashboardPage(),
-    )
-    );
-  }*/
-
-  void signUserUp() {
-    debugPrint('Signing up...');
-  }
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,136 +20,111 @@ class LoginPage extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
-            child: Column(
-              children: [
-                const SizedBox(height: 100),
-
-                //logo
-                Image.asset(
-                  'lib/assets/images/Limon.png',
-                  width: 200,
-                  height: 200,
-                ),
-
-                const SizedBox(height: 25),
-
-                //welcome text
-                Text(
-                  'Welcome back, it\'s good to see you again!',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 0, 95, 0),
-                    fontSize: 16,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                spacing: 20,
+                children: [
+                  //logo
+                  Image.asset(
+                    'assets/images/Limon.png',
+                    width: 200,
+                    height: 200,
                   ),
-                ),
 
-                const SizedBox(height: 15),
+                  //welcome text
+                  Text(
+                    'Welcome back, it\'s good to see you again!',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 0, 95, 0),
+                      fontSize: 16,
+                    ),
+                  ),
 
-                //username textfield
-                MyTextfield(
-                  controller: usernameController,
-                  hintText: 'Username',
-                  obscureText: false,
-                ),
+                  //username textfield
+                  MyTextfield(
+                    controller: usernameController,
+                    validator: UserValidator().validateUsername,
+                    hintText: 'Username',
+                    obscureText: false,
+                  ),
 
-                const SizedBox(height: 10),
+                  //password textfield
+                  MyTextfield(
+                    controller: passwordController,
+                    validator: UserValidator().validatePassword,
+                    hintText: 'Password',
+                    obscureText: true,
+                  ),
 
-                //password textfield
-                MyTextfield(
-                  controller: passwordController,
-                  hintText: 'Password',
-                  obscureText: true,
-                ),
-
-                //forgot password text
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          debugPrint('Forgot Password button pressed');
-                        },
-                        child: Text(
-                          'Forgot Password?',
-                          style: TextStyle(color: Colors.grey[600]),
+                  //forgot password text
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            debugPrint('Forgot Password button pressed');
+                          },
+                          child: Text(
+                            'Forgot Password?',
+                            style: TextStyle(color: Colors.grey[600]),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
 
-                //login button
-                ElevatedButton(
-                  onPressed: () {
-                    final username = usernameController.text;
-                    final password = passwordController.text;
+                  //login button
+                  ElevatedButton(
+                    onPressed: () {
+                      debugPrint("BUTONA BASILDI");
 
-                    bool found = false;
+                      final result = _formKey.currentState!.validate();
 
-                    for (var user in seedUsers) {
-                      if (user.username == username &&
-                          user.password == password) {
-                        found = true;
-                        break;
+                      debugPrint("VALIDATION RESULT: $result");
+
+                      if (!result) {
+                        return;
                       }
-                    }
-                    if (found) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DashboardPage(),
-                        ),
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("kullanıcı adı veya şifre yanlış"),
-                        ),
-                      );
-                    }
-                  },
-                  child: const Text("Login"),
-                ),
 
-                const SizedBox(height: 30),
+                      debugPrint("VALIDATION GEÇTİ");
+                      if (!_formKey.currentState!.validate()) {
+                        return; // Stop if the form is not valid
+                      }
 
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(thickness: 1, color: Colors.black),
-                      ),
+                      final username = usernameController.text;
+                      final password = passwordController.text;
 
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text(
-                          ' Don\'t have an account? ',
-                          style: TextStyle(color: Colors.grey[700]),
-                        ),
-                      ),
+                      bool found = false;
 
-                      Expanded(
-                        child: Divider(thickness: 1, color: Colors.black),
-                      ),
-                    ],
+                      for (var user in seedUsers) {
+                        if (user.username == username &&
+                            user.password == password) {
+                          found = true;
+                          break;
+                        }
+                      }
+                      if (found) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DashboardPage(),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("kullanıcı adı veya şifre yanlış"),
+                          ),
+                        );
+                      }
+                    },
+                    child: const Text("Login"),
                   ),
-                ),
-
-                const SizedBox(height: 30),
-
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SignUpPage()),
-                    );
-                  },
-                  child: const Text("Sign Up"),
-                ),
-                //not a member? register now text
-              ],
+                ],
+              ),
             ),
           ),
         ),
