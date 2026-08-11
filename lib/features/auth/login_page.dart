@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hello/features/dashboard/dashboard_page.dart';
 import '../../core/widgets/my_textfield.dart';
-// ignore: unused_import
-import '../../core/widgets/my_button.dart';
-import '../../data/seed/user_seed.dart';
 import '../../core/validators/user_validator.dart';
+import '../../data/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -23,7 +22,7 @@ class LoginPage extends StatelessWidget {
             child: Form(
               key: _formKey,
               child: Column(
-                spacing: 20,
+                spacing: 48,
                 children: [
                   //logo
                   Image.asset(
@@ -79,34 +78,18 @@ class LoginPage extends StatelessWidget {
                   //login button
                   ElevatedButton(
                     onPressed: () {
-                      debugPrint("BUTONA BASILDI");
-
-                      final result = _formKey.currentState!.validate();
-
-                      debugPrint("VALIDATION RESULT: $result");
-
-                      if (!result) {
-                        return;
-                      }
-
-                      debugPrint("VALIDATION GEÇTİ");
                       if (!_formKey.currentState!.validate()) {
-                        return; // Stop if the form is not valid
+                        return;
                       }
 
                       final username = usernameController.text;
                       final password = passwordController.text;
 
-                      bool found = false;
+                      final userProvider = context.read<UserProvider>();
 
-                      for (var user in seedUsers) {
-                        if (user.username == username &&
-                            user.password == password) {
-                          found = true;
-                          break;
-                        }
-                      }
-                      if (found) {
+                      final user = userProvider.login(username, password);
+
+                      if (user != null) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -116,7 +99,7 @@ class LoginPage extends StatelessWidget {
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text("kullanıcı adı veya şifre yanlış"),
+                            content: Text("Kullanıcı adı veya şifre yanlış"),
                           ),
                         );
                       }

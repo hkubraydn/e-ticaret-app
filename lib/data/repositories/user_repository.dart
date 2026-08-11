@@ -6,6 +6,15 @@ class UserRepository {
     return seedUsers;
   }
 
+  bool isUnique(String username) {
+    for (var user in seedUsers) {
+      if (user.username == username && !user.isDeleted) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   UserModel? login(String username, String password) {
     for (var user in seedUsers) {
       if (user.username == username &&
