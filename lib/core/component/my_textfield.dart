@@ -6,6 +6,7 @@ class MyTextfield extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final String? Function(String?)? validator;
+  final Widget? suffixIcon;
 
   const MyTextfield({
     super.key,
@@ -13,6 +14,7 @@ class MyTextfield extends StatelessWidget {
     required this.hintText,
     required this.obscureText,
     this.validator,
+    this.suffixIcon,
   });
 
   @override
@@ -34,6 +36,7 @@ class MyTextfield extends StatelessWidget {
           filled: true,
           hintText: hintText,
           hintStyle: TextStyle(color: Colors.grey[500]),
+          suffixIcon: suffixIcon,
         ),
       ),
     );

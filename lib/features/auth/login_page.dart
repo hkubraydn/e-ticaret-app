@@ -1,16 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:hello/features/dashboard/dashboard_page.dart';
-import '../../core/widgets/my_textfield.dart';
+import '../../core/component/my_textfield.dart';
 import '../../core/validators/user_validator.dart';
 import '../../data/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  //Controller olduğu için stateful yapmak daha mantıklı.
+  const LoginPage({super.key});
 
-  final usernameController = TextEditingController();
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+} /*<LoginPage> statein hangi widgeta ait olduğunu belirtir.
+createState() state oluşturan fonksiyon
+_LoginPageState() oluşan state nesnesidir.
+*/
+
+class _LoginPageState extends State<LoginPage> {
+  /*Başındaki _ private sınıf olduğunu belirtir
+_LoginPageState: Login ekranına ait geçici değişiklikleri tutar.
+*/
+
+  //yeni bir controller oluşturuyoz
+  final usernameController =
+      TextEditingController(); //Kullancı adı alanındaki yazıyı okumayı sağlayan sınıf. Kullanıcı ahmet yazarsa usernameController.text ile bu yazı okunabilir.
   final passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  // GlobalKey flutter içinde belirli bir widgeta ulaşmak için özel bir key
+  //<FormState> bu anahtarın ulaşacağı widgettır. Form widgetının durumuna ulaşıcakmış
+  //_formKeydeki _ sayesinde sadece bu dosyada kullanılabilir
+
+  bool isPasswordHidden = true;
+
+  @override
+  void dispose() {
+    // Kullanıcı sayfadan çıktığında çağrılır
+    usernameController.dispose();
+    passwordController.dispose();
+    super.dispose(); //Statei temizler
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +81,20 @@ class LoginPage extends StatelessWidget {
                     controller: passwordController,
                     validator: UserValidator().validatePassword,
                     hintText: 'Password',
-                    obscureText: true,
+                    obscureText: isPasswordHidden,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        isPasswordHidden
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isPasswordHidden = !isPasswordHidden;
+                        });
+                      },
+                    ),
                   ),
-
                   //forgot password text
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
