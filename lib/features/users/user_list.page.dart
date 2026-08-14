@@ -23,13 +23,55 @@ class UserListPage extends StatelessWidget {
           }
 
           return ListView.builder(
+            padding: const EdgeInsets.all(16),
             itemCount: provider.users.length,
             itemBuilder: (context, index) {
               final user = provider.users[index];
 
-              return ListTile(
-                title: Text(user.username),
-                subtitle: Text(user.userTitle),
+              final displayUsername = //Kullanıcı adının baş harfini her zaman büyük harf yapar
+                  '${user.username[0].toUpperCase()}${user.username.substring(1)}';
+
+              final displayUserTitle = //Kullanıcı ünvanının baş harfini her zaman büyük harf yapar
+                  '${user.userTitle[0].toUpperCase()}${user.userTitle.substring(1)}';
+
+              return Card(
+                margin: const EdgeInsets.only(bottom: 12),
+                child: ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.green.shade100,
+                    child: Text(
+                      displayUsername[0], //Kullanıcı adinin ilk harfini alıyor
+                      style: const TextStyle(
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+
+                  title: Text('${index + 1}. $displayUsername'),
+                  subtitle: Text(
+                    displayUserTitle,
+                    style: const TextStyle(color: Colors.black, fontSize: 14),
+                  ),
+
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.edit),
+                        color: Colors.blue,
+                        onPressed: () {},
+                      ),
+
+                      //Delete işlemi
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        color: Colors.red,
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                ),
               );
             },
           );
