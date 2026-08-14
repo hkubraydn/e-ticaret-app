@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../data/providers/user_provider.dart';
+import '../users/user_add_page.dart';
 
 /*Bu ekran Providerdaki kullanıcıları ekranda liste olarak gösterir.*/
 
@@ -13,7 +14,21 @@ class UserListPage extends StatelessWidget {
     //bu sayfa nasıl görünecek kısmı
     return Scaffold(
       //sayfa iskeleti
-      appBar: AppBar(title: const Text('Users')),
+      appBar: AppBar(
+        title: const Text('Users'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const UserAddPage()),
+              );
+            },
+            icon: const Icon(Icons.add),
+            tooltip: 'Add User',
+          ),
+        ],
+      ),
 
       body: Consumer<UserProvider>(
         //UserProviderda users listesini dinler, liste değişirse Bu ekranı güncelliyor.
@@ -67,7 +82,9 @@ class UserListPage extends StatelessWidget {
                       IconButton(
                         icon: const Icon(Icons.delete),
                         color: Colors.red,
-                        onPressed: () {},
+                        onPressed: () {
+                          context.read<UserProvider>().deleteUser(user.id);
+                        },
                       ),
                     ],
                   ),

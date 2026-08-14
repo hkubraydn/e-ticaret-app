@@ -20,10 +20,14 @@ class UserProvider extends ChangeNotifier {
   UserModel? login(String username, String password) {
     return repository.login(username, password);
   } //provider verileri alır ve repositorye gönderir, repositoryde işlemi yapar ve providera geri gönderir.
+
   /*provider.login("hatice", "1234"); aldık diyelim 
 provider bu bilgileri repository.login(....)'e veriyo
 repo bu kullanıcıyı arıyo varsa user döndürüyo yoksa null
 listeyi değiştirmediği için de loadUsers() kullanmaya gerek yok.*/
+  bool isUsernameUnique(String username) {
+    return repository.isUnique(username);
+  }
 
   void addUser(UserModel user) {
     //elimizde eklenecek bir user var.
@@ -44,6 +48,8 @@ listeyi değiştirmediği için de loadUsers() kullanmaya gerek yok.*/
 
   void deleteUser(int id) {
     repository.deleteUser(id);
+    users = repository.getUsers();
+
     notifyListeners();
   }
 }
