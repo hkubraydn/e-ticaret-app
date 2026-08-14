@@ -1,42 +1,66 @@
 import 'package:flutter/material.dart';
+import 'package:hello/features/users/user_list.page.dart';
+//import '../../features/users/user_add_page.dart';
 
 class DashboardPage extends StatelessWidget {
-  DashboardPage({super.key});
+  const DashboardPage({super.key});
 
-  final List<String> products = ["Users", "Categories", "Products", "hello"];
+  void goToUsers() {
+    debugPrint("Users listesine gidiliyor...");
+  }
+
+  void goToCategories() {
+    debugPrint("Category listesine gidiliyor...");
+  }
+
+  void goToProducts() {
+    debugPrint("Product listesine gidiliyor...");
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Dashboard')),
+      appBar: AppBar(title: Text("Dashboard")),
       body: SafeArea(
-        child: ListView(
-          children: [
-            ExpansionTile(
-              title: Text("Users"),
-              children: [
-                ListTile(title: Text("happy")),
-                ListTile(title: Text("sad")),
-                ListTile(title: Text("angry")),
-              ],
-            ),
-            ExpansionTile(
-              title: Text("Categories"),
-              children: [
-                ListTile(title: Text("happy")),
-                ListTile(title: Text("sad")),
-                ListTile(title: Text("angry")),
-              ],
-            ),
-            ExpansionTile(
-              title: Text("Products"),
-              children: [
-                ListTile(title: Text("happy")),
-                ListTile(title: Text("sad")),
-                ListTile(title: Text("angry")),
-              ],
-            ),
-          ],
+        child: Center(
+          child: Column(
+            spacing: 24,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context, //şuan nerede olduğumuzu belirtiyomuş
+                    MaterialPageRoute(
+                      builder: (context) => UserListPage(),
+                      //builder: hangi widgeti oluşturcaz verisiymiş örneğin burda DashBoard page widgeti oluşturuyoruz.
+                    ),
+                  );
+                },
+                child: Text("Users"),
+              ),
+
+              /*---------------------------------------------------------
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context, //şuan nerede olduğumuzu belirtiyomuş
+                    MaterialPageRoute(
+                      builder: (context) => UserAddPage(),
+                      //builder: hangi widgeti oluşturcaz verisiymiş örneğin burda DashBoard page widgeti oluşturuyoruz.
+                    ),
+                  );
+                },
+                child: Text("Users"),
+              ),
+
+              ---------------------------------------------------------*/
+              ElevatedButton(
+                onPressed: goToProducts,
+                child: Text("Categories"),
+              ),
+              ElevatedButton(onPressed: goToProducts, child: Text("Products")),
+            ],
+          ),
         ),
       ),
     );

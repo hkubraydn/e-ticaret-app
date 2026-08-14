@@ -27,7 +27,7 @@ class UserValidator {
 
   String? validateUserTitle(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter a username';
+      return 'Please enter a user title';
     }
     return null;
   }

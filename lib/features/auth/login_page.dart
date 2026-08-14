@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   //Controller olduğu için stateful yapmak daha mantıklı.
-  const LoginPage({super.key});
+  const LoginPage({super.key}); //flutterin ekrandaki widgetları ayırt etmesine yarar
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -26,11 +26,10 @@ _LoginPageState: Login ekranına ait geçici değişiklikleri tutar.
       TextEditingController(); //Kullancı adı alanındaki yazıyı okumayı sağlayan sınıf. Kullanıcı ahmet yazarsa usernameController.text ile bu yazı okunabilir.
   final passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  // GlobalKey flutter içinde belirli bir widgeta ulaşmak için özel bir key
-  //<FormState> bu anahtarın ulaşacağı widgettır. Form widgetının durumuna ulaşıcakmış
-  //_formKeydeki _ sayesinde sadece bu dosyada kullanılabilir
+  /* _ işareti bu değişkenin sadece bu dosya içerisinde kullanılacağını belirtir.
+  Bu anahtarla girilen inputun forma uygun olup olmadığını belirtir*/
 
-  bool isPasswordHidden = true;
+  bool isPasswordHidden = true; //buraya bir state ekledik
 
   @override
   void dispose() {
@@ -45,7 +44,7 @@ _LoginPageState: Login ekranına ait geçici değişiklikleri tutar.
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 230, 255, 233),
       body: SafeArea(
-        child: SingleChildScrollView(
+        child: SingleChildScrollView( //kaydırılabilir
           child: Center(
             child: Form(
               key: _formKey,
@@ -95,44 +94,38 @@ _LoginPageState: Login ekranına ait geçici değişiklikleri tutar.
                       },
                     ),
                   ),
-                  //forgot password text
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            debugPrint('Forgot Password button pressed');
-                          },
-                          child: Text(
-                            'Forgot Password?',
-                            style: TextStyle(color: Colors.grey[600]),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                
 
                   //login button
                   ElevatedButton(
                     onPressed: () {
                       if (!_formKey.currentState!.validate()) {
                         return;
-                      }
+                      } //formu kontrol e
 
                       final username = usernameController.text;
                       final password = passwordController.text;
 
                       final userProvider = context.read<UserProvider>();
+                      //context.read<UserProvider>() user provider'da istediği fonksiyonu kullanır. Daha sonra providerda herhangi başka bir değişiklik olursa uyarılmaz
 
-                      final user = userProvider.login(username, password);
+                      final user = userProvider.login(username, password); 
+                      //username ve password, providera gönderilir, providersa repoya gönderir. Repositoryde login işlemi yapılır 
+                      /*UserModel? login(String username, String password) {
+                          for (var user in seedUsers) {
+                          if (user.username == username &&
+                              user.password == password &&
+                              !user.isDeleted) {
+                            return user;
+                          }
+                        }*/
 
                       if (user != null) {
                         Navigator.push(
-                          context,
+                          context, //şuan nerede olduğumuzu belirtiyomuş
                           MaterialPageRoute(
                             builder: (context) => DashboardPage(),
+                            //builder: hangi widgeti oluşturcaz verisiymiş örneğin burda DashBoard page widgeti oluşturuyoruz.
                           ),
                         );
                       } else {
