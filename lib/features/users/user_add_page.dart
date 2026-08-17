@@ -85,7 +85,7 @@ class _UserAddPage extends State<UserAddPage> {
                     final username = _usernameController.text.trim();
                     final userProvider = context.read<UserProvider>();
 
-                    if (!userProvider.isUsernameUnique(username)) {
+                    if (!userProvider.isUsernameUnique(username, null)) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Bu kullanıcı adı zaten kayıtlı'),

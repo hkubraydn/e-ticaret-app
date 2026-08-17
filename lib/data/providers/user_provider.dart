@@ -25,8 +25,8 @@ class UserProvider extends ChangeNotifier {
 provider bu bilgileri repository.login(....)'e veriyo
 repo bu kullanıcıyı arıyo varsa user döndürüyo yoksa null
 listeyi değiştirmediği için de loadUsers() kullanmaya gerek yok.*/
-  bool isUsernameUnique(String username) {
-    return repository.isUnique(username);
+  bool isUsernameUnique(String username, int? id) {
+    return repository.isUnique(username, id);
   }
 
   void addUser(UserModel user) {
@@ -40,9 +40,9 @@ listeyi değiştirmediği için de loadUsers() kullanmaya gerek yok.*/
 
   void updateUser(UserModel updatedUser) {
     //elimizde güncellencek bir kullanıcı var
-    repository.updateUser(
-      updatedUser,
-    ); //repodaki updateUser kullanark kullanıcıyı güncelleriz
+    repository.updateUser(updatedUser);
+    users = repository
+        .getUsers(); //repodaki updateUser kullanark kullanıcıyı güncelleriz
     notifyListeners(); //ekranlara değişiklik bildirilir
   }
 

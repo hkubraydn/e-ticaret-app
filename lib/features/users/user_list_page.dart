@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../data/providers/user_provider.dart';
 import '../users/user_add_page.dart';
+import '../users/user_edit_page.dart';
 
 /*Bu ekran Providerdaki kullanıcıları ekranda liste olarak gösterir.*/
 
@@ -71,7 +72,14 @@ class UserListPage extends StatelessWidget {
                       IconButton(
                         icon: const Icon(Icons.edit),
                         color: Colors.blue,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => UserEditPage(user: user),
+                            ),
+                          );
+                        },
                       ),
 
                       //Delete işlemi
@@ -79,6 +87,7 @@ class UserListPage extends StatelessWidget {
                         icon: const Icon(Icons.delete),
                         color: Colors.red,
                         onPressed: () {
+                          debugPrint("soft deleted");
                           context.read<UserProvider>().deleteUser(user.id);
                         },
                       ),

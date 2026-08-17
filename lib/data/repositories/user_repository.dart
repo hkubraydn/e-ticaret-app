@@ -9,11 +9,11 @@ class UserRepository {
         .toList(); // seedUserstaki silinmiş olmayan kullanıcıları seç ve yeni bir liste oluştur.
   }
 
-  bool isUnique(String username) {
+  bool isUnique(String username, int? id) {
     //kullanıcı adının unique olmasını sağlar.
     for (var user in seedUsers) {
       //seedUserstaki userları tek tek dolaşıyo,
-      if (user.username == username && !user.isDeleted) {
+      if (user.username == username && !user.isDeleted && user.id != id) {
         /*eğer input alınan username seedUserstaki bir userın usernamei ile aynıysa ve bu kullanıcı soft delete yapılmamışsa false döndürür. */
         return false;
       }
