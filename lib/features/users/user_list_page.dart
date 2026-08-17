@@ -87,8 +87,39 @@ class UserListPage extends StatelessWidget {
                         icon: const Icon(Icons.delete),
                         color: Colors.red,
                         onPressed: () {
-                          debugPrint("soft deleted");
-                          context.read<UserProvider>().deleteUser(user.id);
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text("Are you sure?"),
+                                content: Text(
+                                  "Are you sure you want to delete this user?",
+                                ),
+                                actionsAlignment: MainAxisAlignment.center,
+                                actions: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("Cancel"),
+                                  ),
+
+                                  const SizedBox(width: 24),
+
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      debugPrint("soft deleted");
+                                      context.read<UserProvider>().deleteUser(
+                                        user.id,
+                                      );
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("Delete"),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         },
                       ),
                     ],
