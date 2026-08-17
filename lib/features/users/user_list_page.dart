@@ -43,19 +43,13 @@ class UserListPage extends StatelessWidget {
             itemBuilder: (context, index) {
               final user = provider.users[index];
 
-              final displayUsername = //Kullanıcı adının baş harfini her zaman büyük harf yapar
-                  '${user.username[0].toUpperCase()}${user.username.substring(1)}';
-
-              final displayUserTitle = //Kullanıcı ünvanının baş harfini her zaman büyük harf yapar
-                  '${user.userTitle[0].toUpperCase()}${user.userTitle.substring(1)}';
-
               return Card(
                 margin: const EdgeInsets.only(bottom: 12),
                 child: ListTile(
                   leading: CircleAvatar(
                     backgroundColor: Colors.green.shade100,
                     child: Text(
-                      displayUsername[0], //Kullanıcı adinin ilk harfini alıyor
+                      user.username[0], //Kullanıcı adinin ilk harfini alıyor
                       style: const TextStyle(
                         color: Colors.green,
                         fontWeight: FontWeight.bold,
@@ -63,9 +57,11 @@ class UserListPage extends StatelessWidget {
                     ),
                   ),
 
-                  title: Text('${index + 1}. $displayUsername'),
+                  title: Text(
+                    '${index + 1}. ${user.username}',
+                  ), //Kullanıcı adını gösteriyor, index + 1 ile kullanıcı sıralamasını gösteriyor.
                   subtitle: Text(
-                    displayUserTitle,
+                    user.userTitle,
                     style: const TextStyle(color: Colors.black, fontSize: 14),
                   ),
 
