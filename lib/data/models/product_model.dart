@@ -4,6 +4,7 @@ class ProductModel {
   int? productCategoryId;
   int barcode;
   bool status;
+  bool isDeleted;
 
   ProductModel({
     required this.id,
@@ -11,5 +12,6 @@ class ProductModel {
     this.productCategoryId,
     required this.barcode,
     this.status = true,
+    this.isDeleted = false,
   });
 }
