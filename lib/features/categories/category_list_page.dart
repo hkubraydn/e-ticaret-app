@@ -2,6 +2,7 @@ import 'category_add_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../data/providers/category_provider.dart';
+import '../categories/category_edit_page.dart';
 
 class CategoryListPage extends StatelessWidget {
   const CategoryListPage({super.key});
@@ -86,7 +87,15 @@ class CategoryListPage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  CategoryEditPage(category: category),
+                            ),
+                          );
+                        },
                         icon: const Icon(Icons.edit),
                         color: Colors.blue,
                       ),
