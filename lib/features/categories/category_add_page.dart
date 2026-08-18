@@ -95,6 +95,7 @@ class _CategoryAddPage extends State<CategoryAddPage> {
                         id: DateTime.now().millisecondsSinceEpoch,
                         categoryName: categoryTitle,
                         categoryDesc: _descriptionController.text,
+                        status: status,
                       );
 
                       categoryProvider.addCategory(newCategory);

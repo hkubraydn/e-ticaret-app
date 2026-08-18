@@ -1,5 +1,3 @@
-import 'package:hello/data/seed/user_seed.dart';
-
 import '../models/category_model.dart';
 import '../seed/category_seed.dart';
 
@@ -45,7 +43,7 @@ class CategoryRepository {
   void deleteCategory(int id) {
     final index = seedCategories.indexWhere((category) => category.id == id);
     if (index != -1) {
-      seedUsers[index].isDeleted = true;
+      seedCategories[index].isDeleted = true;
     }
   }
 }
