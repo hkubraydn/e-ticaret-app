@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello/features/categories/category_add_page.dart';
 import 'package:hello/features/users/user_list_page.dart';
 //import '../../features/users/user_add_page.dart';
 
@@ -40,7 +41,15 @@ class DashboardPage extends StatelessWidget {
               ),
 
               ElevatedButton(
-                onPressed: goToProducts,
+                onPressed: () {
+                  Navigator.push(
+                    context, //şuan nerede olduğumuzu belirtiyomuş
+                    MaterialPageRoute(
+                      builder: (context) => CategoryAddPage(),
+                      //builder: hangi widgeti oluşturcaz verisiymiş örneğin burda DashBoard page widgeti oluşturuyoruz.
+                    ),
+                  );
+                },
                 child: Text("Categories"),
               ),
               ElevatedButton(onPressed: goToProducts, child: Text("Products")),
