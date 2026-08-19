@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello/features/categories/category_list_page.dart';
-import 'package:hello/features/products/product_add_page.dart';
+import 'package:hello/features/products/product_list_page.dart';
 import 'package:hello/features/users/user_list_page.dart';
 //import '../../features/users/user_add_page.dart';
 
@@ -58,7 +58,7 @@ class DashboardPage extends StatelessWidget {
                   Navigator.push(
                     context, //şuan nerede olduğumuzu belirtiyomuş
                     MaterialPageRoute(
-                      builder: (context) => ProductAddPage(),
+                      builder: (context) => ProductListPage(),
                       //builder: hangi widgeti oluşturcaz verisiymiş örneğin burda DashBoard page widgeti oluşturuyoruz.
                     ),
                   );

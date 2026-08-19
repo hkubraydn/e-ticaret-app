@@ -136,6 +136,7 @@ class _ProductAddPage extends State<ProductAddPage> {
                         name: productName,
                         barcode: barcode,
                         productCategoryId: selectedCategoryId,
+                        status: status,
                       );
 
                       productProvider.addProduct(newProduct);
