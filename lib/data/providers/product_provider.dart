@@ -11,8 +11,8 @@ class ProductProvider extends ChangeNotifier {
     products = repository.getProducts();
   }
 
-  bool isProductUnique(String productName, int? id) {
-    return repository.isUnique(productName, id);
+  bool isProductUnique(String barcode, int? id) {
+    return repository.isUnique(barcode, id);
   }
 
   void addProduct(ProductModel product) {

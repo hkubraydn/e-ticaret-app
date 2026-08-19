@@ -6,9 +6,11 @@ class ProductRepository {
     return seedProducts.where((product) => !product.isDeleted).toList();
   }
 
-  bool isUnique(String name, int? id) {
+  bool isUnique(String barcode, int? id) {
     for (var product in seedProducts) {
-      if (product.name == name && !product.isDeleted && product.id != id) {
+      if (product.barcode == barcode &&
+          !product.isDeleted &&
+          product.id != id) {
         return false;
       }
     }

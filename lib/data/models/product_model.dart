@@ -2,7 +2,7 @@ class ProductModel {
   final int id;
   String name;
   int? productCategoryId;
-  int barcode;
+  String barcode;
   bool status;
   bool isDeleted;
 
