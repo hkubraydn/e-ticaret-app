@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../data/providers/product_provider.dart';
 import '../../data/providers/category_provider.dart';
 import '../products/product_add_page.dart';
+import '../products/product_edit_page.dart';
 
 class ProductListPage extends StatelessWidget {
   const ProductListPage({super.key});
@@ -89,12 +90,13 @@ class ProductListPage extends StatelessWidget {
                     children: [
                       IconButton(
                         onPressed: () {
-                          //   Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //       builder: (context) => const ProductAddPage(),
-                          //     ),
-                          //   );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  ProductEditPage(product: product),
+                            ),
+                          );
                         },
                         icon: const Icon(Icons.edit),
                         color: Colors.blue,
