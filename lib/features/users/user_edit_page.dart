@@ -25,7 +25,7 @@ class _UserEditPage extends State<UserEditPage> {
 
     _usernameController = TextEditingController(text: widget.user.username);
     _userTitleController = TextEditingController(text: widget.user.userTitle);
-    _passwordController = TextEditingController(text: widget.user.password);
+    _passwordController = TextEditingController();
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -88,9 +88,10 @@ class _UserEditPage extends State<UserEditPage> {
                   if (!_formKey.currentState!.validate()) {
                     return;
                   }
-                  final username = _usernameController.text.trim();
                   final userProvider = context.read<UserProvider>();
+                  final username = _usernameController.text.trim();
                   final userId = widget.user.id;
+                  final password = _passwordController.text.trim();
 
                   if (!userProvider.isUsernameUnique(username, userId)) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -105,7 +106,9 @@ class _UserEditPage extends State<UserEditPage> {
                     id: widget.user.id,
                     username: username,
                     userTitle: _userTitleController.text,
-                    password: _passwordController.text,
+                    password: password.isEmpty
+                        ? widget.user.password
+                        : password,
                   );
                   context.read<UserProvider>().updateUser(updatedUser);
 
