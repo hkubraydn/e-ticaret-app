@@ -1,5 +1,6 @@
 import '../models/category_model.dart';
 import '../seed/category_seed.dart';
+import '../../data/repositories/product_repository.dart';
 
 class CategoryRepository {
   List<CategoryModel> getCategories() {
@@ -40,10 +41,18 @@ class CategoryRepository {
     }
   }
 
-  void deleteCategory(int id) {
+  bool deleteCategory(int id) {
+    final productRepository = ProductRepository();
+
+    if (productRepository.hasAnyProducts(id)) {
+      return true;
+    }
+
     final index = seedCategories.indexWhere((category) => category.id == id);
     if (index != -1) {
       seedCategories[index].isDeleted = true;
     }
+
+    return false;
   }
 }

@@ -31,6 +31,14 @@ class ProductRepository {
     }
   }
 
+  bool hasAnyProducts(int categoryId) {
+    return seedProducts.any(
+      (product) =>
+          !product.isDeleted && product.productCategoryId == categoryId,
+    );
+  }
+  //product silinmemişse ve categoryId eşleşiyorsa true döner, aksi takdirde false döner.
+
   void deleteProduct(int id) {
     final index = seedProducts.indexWhere((product) => product.id == id);
 
