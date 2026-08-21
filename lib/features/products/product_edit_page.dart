@@ -20,6 +20,7 @@ class _ProductEditPage extends State<ProductEditPage> {
   late final TextEditingController _barcodeController;
   late bool status;
   late int? selectedCategoryId;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -44,6 +45,7 @@ class _ProductEditPage extends State<ProductEditPage> {
       appBar: AppBar(title: Text("Edit Product")),
       body: SafeArea(
         child: Form(
+          key: _formKey,
           child: Column(
             children: [
               //Name
@@ -116,6 +118,10 @@ class _ProductEditPage extends State<ProductEditPage> {
 
               ElevatedButton(
                 onPressed: () {
+                  if (!_formKey.currentState!.validate()) {
+                    return;
+                  }
+
                   final productProvider = context.read<ProductProvider>();
                   final productName = _nameController.text.trim();
                   final barcode = _barcodeController.text.trim();
