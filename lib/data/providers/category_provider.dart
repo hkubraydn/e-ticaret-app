@@ -27,12 +27,9 @@ class CategoryProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool deleteCategory(int id) {
-    final result = repository.deleteCategory(id);
-    if (!result) {
-      categories = repository.getCategories();
-      notifyListeners();
-    }
-    return result;
+  void deleteCategory(int id) {
+    repository.deleteCategory(id);
+    categories = repository.getCategories();
+    notifyListeners();
   }
 }

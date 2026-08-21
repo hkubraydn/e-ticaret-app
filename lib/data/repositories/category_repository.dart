@@ -41,18 +41,16 @@ class CategoryRepository {
     }
   }
 
-  bool deleteCategory(int id) {
+  void deleteCategory(int id) {
     final productRepository = ProductRepository();
 
-    if (productRepository.hasAnyProducts(id)) {
-      return true;
-    }
+    //Bu kategoriye ait tüm ürünlerin kategori id lerini null yap.
+    productRepository.nullifyProductsCategory(id);
 
+    // Kategoriyi soft delete yap.
     final index = seedCategories.indexWhere((category) => category.id == id);
     if (index != -1) {
       seedCategories[index].isDeleted = true;
     }
-
-    return false;
   }
 }

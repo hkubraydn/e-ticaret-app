@@ -31,13 +31,13 @@ class ProductRepository {
     }
   }
 
-  bool hasAnyProducts(int categoryId) {
-    return seedProducts.any(
-      (product) =>
-          !product.isDeleted && product.productCategoryId == categoryId,
-    );
+  void nullifyProductsCategory(int categoryId) {
+    for (var product in seedProducts) {
+      if (product.productCategoryId == categoryId) {
+        product.productCategoryId = null;
+      }
+    }
   }
-  //product silinmemişse ve categoryId eşleşiyorsa true döner, aksi takdirde false döner.
 
   void deleteProduct(int id) {
     final index = seedProducts.indexWhere((product) => product.id == id);

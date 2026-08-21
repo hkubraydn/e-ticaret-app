@@ -127,30 +127,6 @@ class CategoryListPage extends StatelessWidget {
                                           .read<CategoryProvider>()
                                           .deleteCategory(category.id);
                                       Navigator.pop(context);
-
-                                      if (context
-                                          .read<CategoryProvider>()
-                                          .deleteCategory(category.id)) {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                              title: Text("Cannot Delete"),
-                                              content: Text(
-                                                "Cannot delete this category because it has associated products.",
-                                              ),
-                                              actions: [
-                                                ElevatedButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Text("OK"),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      }
                                     },
                                     child: Text("Delete"),
                                   ),
