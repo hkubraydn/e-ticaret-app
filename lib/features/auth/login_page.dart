@@ -72,7 +72,7 @@ _LoginPageState: Login ekranına ait geçici değişiklikleri tutar.
                   MyTextfield(
                     controller: usernameController,
                     validator: UserValidator().validateUsername,
-                    hintText: 'Username',
+                    hintText: 'name',
                     obscureText: false,
                   ),
 
