@@ -75,11 +75,15 @@ class _ProductListPage extends State<ProductListPage> {
                                     return StatefulBuilder(
                                       builder: (context, setDialogState) {
                                         return AlertDialog(
-                                          title: const Text("Kategori Seç"),
+                                          title: const Text(
+                                            "Choose a category",
+                                          ),
                                           content: DropdownButton<int?>(
                                             isExpanded: true,
                                             value: selectedId,
-                                            hint: const Text("Kategori seçin"),
+                                            hint: const Text(
+                                              "Choose a category",
+                                            ),
                                             items: context
                                                 .read<CategoryProvider>()
                                                 .categories
@@ -103,7 +107,7 @@ class _ProductListPage extends State<ProductListPage> {
                                               onPressed: () {
                                                 Navigator.pop(context);
                                               },
-                                              child: const Text("İptal"),
+                                              child: const Text("Cancel"),
                                             ),
                                             TextButton(
                                               onPressed: () {
@@ -127,7 +131,7 @@ class _ProductListPage extends State<ProductListPage> {
 
                                                 Navigator.pop(context);
                                               },
-                                              child: const Text("Ekle"),
+                                              child: const Text("Add"),
                                             ),
                                           ],
                                         );

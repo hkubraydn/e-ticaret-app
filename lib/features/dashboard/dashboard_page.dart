@@ -7,18 +7,6 @@ import 'package:hello/features/users/user_list_page.dart';
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
 
-  void goToUsers() {
-    debugPrint("Users listesine gidiliyor...");
-  }
-
-  void goToCategories() {
-    debugPrint("Category listesine gidiliyor...");
-  }
-
-  void goToProducts() {
-    debugPrint("Product listesine gidiliyor...");
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

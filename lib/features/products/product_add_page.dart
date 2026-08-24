@@ -45,7 +45,7 @@ class _ProductAddPage extends State<ProductAddPage> {
                   //Name
                   MyTextfield(
                     controller: _productController,
-                    hintText: "Product name",
+                    hintText: "Product Name",
                     obscureText: false,
                     validator: ProductValidator().validateName,
                   ),
@@ -125,7 +125,9 @@ class _ProductAddPage extends State<ProductAddPage> {
                       if (!productProvider.isProductUnique(barcode, null)) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text("Bu barkodlu ürün zaten var."),
+                            content: Text(
+                              "A product with this barcode already exists.",
+                            ),
                           ),
                         );
                         return;

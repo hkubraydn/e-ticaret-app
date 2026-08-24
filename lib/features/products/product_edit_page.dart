@@ -127,22 +127,14 @@ class _ProductEditPage extends State<ProductEditPage> {
                   final barcode = _barcodeController.text.trim();
 
                   if (!productProvider.isProductUnique(
-                    productName,
-                    widget.product.id,
-                  )) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Bu ürün zaten mevcut.")),
-                    );
-                    return;
-                  }
-
-                  if (!productProvider.isProductUnique(
                     barcode,
                     widget.product.id,
                   )) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text("Bu barkodlu ürün zaten mevcut."),
+                        content: Text(
+                          "A product with this barcode already exists.",
+                        ),
                       ),
                     );
                     return;

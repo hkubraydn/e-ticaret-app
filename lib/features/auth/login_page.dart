@@ -7,7 +7,9 @@ import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   //Controller olduğu için stateful yapmak daha mantıklı.
-  const LoginPage({super.key}); //flutterin ekrandaki widgetları ayırt etmesine yarar
+  const LoginPage({
+    super.key,
+  }); //flutterin ekrandaki widgetları ayırt etmesine yarar
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -44,7 +46,8 @@ _LoginPageState: Login ekranına ait geçici değişiklikleri tutar.
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 230, 255, 233),
       body: SafeArea(
-        child: SingleChildScrollView( //kaydırılabilir
+        child: SingleChildScrollView(
+          //kaydırılabilir
           child: Center(
             child: Form(
               key: _formKey,
@@ -71,7 +74,7 @@ _LoginPageState: Login ekranına ait geçici değişiklikleri tutar.
                   MyTextfield(
                     controller: usernameController,
                     validator: UserValidator().validateUsername,
-                    hintText: 'name',
+                    hintText: 'Username',
                     obscureText: false,
                   ),
 
@@ -94,7 +97,6 @@ _LoginPageState: Login ekranına ait geçici değişiklikleri tutar.
                       },
                     ),
                   ),
-                
 
                   //login button
                   ElevatedButton(
@@ -109,8 +111,8 @@ _LoginPageState: Login ekranına ait geçici değişiklikleri tutar.
                       final userProvider = context.read<UserProvider>();
                       //context.read<UserProvider>() user provider'da istediği fonksiyonu kullanır. Daha sonra providerda herhangi başka bir değişiklik olursa uyarılmaz
 
-                      final user = userProvider.login(username, password); 
-                      //username ve password, providera gönderilir, providersa repoya gönderir. Repositoryde login işlemi yapılır 
+                      final user = userProvider.login(username, password);
+                      //username ve password, providera gönderilir, providersa repoya gönderir. Repositoryde login işlemi yapılır
                       /*UserModel? login(String username, String password) {
                           for (var user in seedUsers) {
                           if (user.username == username &&
@@ -131,7 +133,7 @@ _LoginPageState: Login ekranına ait geçici değişiklikleri tutar.
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text("Kullanıcı adı veya şifre yanlış"),
+                            content: Text("Username or password is wrong!"),
                           ),
                         );
                       }

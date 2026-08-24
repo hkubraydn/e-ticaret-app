@@ -54,7 +54,7 @@ class _CategoryEditPage extends State<CategoryEditPage> {
               //title
               MyTextfield(
                 controller: _categoryController,
-                hintText: "title",
+                hintText: "Title",
                 obscureText: false,
                 validator: CategoryValidator().validateCategoryTitle,
               ),
@@ -62,7 +62,7 @@ class _CategoryEditPage extends State<CategoryEditPage> {
               //description
               MyTextfield(
                 controller: _descriptionController,
-                hintText: "description",
+                hintText: "Description",
                 obscureText: false,
                 validator: CategoryValidator().validateCategoryDesc,
               ),
@@ -101,7 +101,7 @@ class _CategoryEditPage extends State<CategoryEditPage> {
                   )) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text("Bu kategori zaten mevcut."),
+                        content: Text("This category already exists."),
                       ),
                     );
                     return;

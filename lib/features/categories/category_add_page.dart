@@ -58,7 +58,7 @@ class _CategoryAddPage extends State<CategoryAddPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Row(
                       children: [
-                        const Text("Inactive"),
+                        const Text("Passive"),
                         Switch(
                           value: status,
                           onChanged: (value) {
@@ -85,7 +85,7 @@ class _CategoryAddPage extends State<CategoryAddPage> {
                       )) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text("Bu kategori zaten kayıtlı"),
+                            content: Text("This category already exists."),
                           ),
                         );
                         return;
@@ -102,7 +102,7 @@ class _CategoryAddPage extends State<CategoryAddPage> {
 
                       Navigator.pop(context);
                     },
-                    child: Text("Add category"),
+                    child: Text("Add Category"),
                   ),
                 ],
               ),
