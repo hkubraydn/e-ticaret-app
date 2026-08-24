@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:hello/data/models/product_model.dart';
 import 'package:provider/provider.dart';
 import '../../data/providers/product_provider.dart';
 import '../../data/providers/category_provider.dart';
 import '../products/product_add_page.dart';
 import '../products/product_edit_page.dart';
 
-class ProductListPage extends StatelessWidget {
+class ProductListPage extends StatefulWidget {
   const ProductListPage({super.key});
 
+  @override
+  State<ProductListPage> createState() => _ProductListPage();
+}
+
+class _ProductListPage extends State<ProductListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,18 +50,96 @@ class ProductListPage extends StatelessWidget {
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        product.productCategoryId == null
-                            ? "No category"
-                            : context
-                                  .read<CategoryProvider>()
-                                  .categories
-                                  .firstWhere(
-                                    (category) =>
-                                        category.id ==
-                                        product.productCategoryId,
-                                  )
-                                  .categoryName,
+                      Row(
+                        children: [
+                          Text(
+                            product.productCategoryId == null
+                                ? "No category"
+                                : context
+                                      .read<CategoryProvider>()
+                                      .categories
+                                      .firstWhere(
+                                        (category) =>
+                                            category.id ==
+                                            product.productCategoryId,
+                                      )
+                                      .categoryName,
+                          ),
+                          if (product.productCategoryId == null)
+                            TextButton(
+                              onPressed: () {
+                                int? selectedId;
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return StatefulBuilder(
+                                      builder: (context, setDialogState) {
+                                        return AlertDialog(
+                                          title: const Text("Kategori Seç"),
+                                          content: DropdownButton<int?>(
+                                            isExpanded: true,
+                                            value: selectedId,
+                                            hint: const Text("Kategori seçin"),
+                                            items: context
+                                                .read<CategoryProvider>()
+                                                .categories
+                                                .map((category) {
+                                                  return DropdownMenuItem<int?>(
+                                                    value: category.id,
+                                                    child: Text(
+                                                      category.categoryName,
+                                                    ),
+                                                  );
+                                                })
+                                                .toList(),
+                                            onChanged: (value) {
+                                              setDialogState(() {
+                                                selectedId = value;
+                                              });
+                                            },
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text("İptal"),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                final updatedProduct =
+                                                    ProductModel(
+                                                      id: product.id,
+                                                      name: product.name,
+                                                      barcode: product.barcode,
+                                                      productCategoryId:
+                                                          selectedId,
+                                                    );
+                                                if (selectedId != null) {
+                                                  product.productCategoryId =
+                                                      selectedId;
+                                                  context
+                                                      .read<ProductProvider>()
+                                                      .updateProduct(
+                                                        updatedProduct,
+                                                      );
+                                                }
+
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text("Ekle"),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                );
+                              },
+
+                              child: Text("Add Category"),
+                            ),
+                        ],
                       ),
 
                       Text(product.barcode),
