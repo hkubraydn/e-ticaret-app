@@ -71,7 +71,7 @@ class _UserEditPage extends State<UserEditPage> {
               MyTextfield(
                 controller: _passwordController,
                 hintText: languageProvider.translate('password'),
-                validator: UserValidator().validatePassword,
+                validator: UserValidator().validatePasswordEdit,
                 obscureText: isPasswordHidden,
                 suffixIcon: IconButton(
                   icon: Icon(
