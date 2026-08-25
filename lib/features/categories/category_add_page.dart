@@ -5,6 +5,7 @@ import '../../core/component/my_textfield.dart';
 import '../../core/validators/category_validator.dart';
 import '../../data/models/category_model.dart';
 import '../../data/providers/category_provider.dart';
+import '../../data/providers/language_provider.dart';
 
 class CategoryAddPage extends StatefulWidget {
   const CategoryAddPage({super.key});
@@ -28,8 +29,9 @@ class _CategoryAddPage extends State<CategoryAddPage> {
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
     return Scaffold(
-      appBar: AppBar(title: Text("Add Category")),
+      appBar: AppBar(title: Text(languageProvider.translate('categoryAdd'))),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
@@ -40,7 +42,7 @@ class _CategoryAddPage extends State<CategoryAddPage> {
                   //Category title
                   MyTextfield(
                     controller: _categoryController,
-                    hintText: "Category Title",
+                    hintText: languageProvider.translate('categoryTitle'),
                     validator: CategoryValidator().validateCategoryTitle,
                     obscureText: false,
                   ),
@@ -48,7 +50,7 @@ class _CategoryAddPage extends State<CategoryAddPage> {
                   //Category description
                   MyTextfield(
                     controller: _descriptionController,
-                    hintText: "Description for category",
+                    hintText: languageProvider.translate('categoryDesc'),
                     validator: CategoryValidator().validateCategoryDesc,
                     obscureText: false,
                   ),
@@ -58,7 +60,7 @@ class _CategoryAddPage extends State<CategoryAddPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Row(
                       children: [
-                        const Text("Passive"),
+                        Text(languageProvider.translate('passive')),
                         Switch(
                           value: status,
                           onChanged: (value) {
@@ -67,7 +69,7 @@ class _CategoryAddPage extends State<CategoryAddPage> {
                             });
                           },
                         ),
-                        const Text("Active"),
+                        Text(languageProvider.translate('active')),
                       ],
                     ),
                   ),
@@ -84,8 +86,10 @@ class _CategoryAddPage extends State<CategoryAddPage> {
                         null,
                       )) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("This category already exists."),
+                          SnackBar(
+                            content: Text(
+                              languageProvider.translate('categoryExists'),
+                            ),
                           ),
                         );
                         return;
@@ -102,7 +106,7 @@ class _CategoryAddPage extends State<CategoryAddPage> {
 
                       Navigator.pop(context);
                     },
-                    child: Text("Add Category"),
+                    child: Text(languageProvider.translate('save')),
                   ),
                 ],
               ),

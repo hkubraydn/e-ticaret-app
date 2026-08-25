@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../data/providers/category_provider.dart';
 import '../categories/category_edit_page.dart';
+import '../../data/providers/language_provider.dart';
 
 class CategoryListPage extends StatelessWidget {
   const CategoryListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Categories"),
+        title: Text(languageProvider.translate('categories')),
         actions: [
           IconButton(
             onPressed: () {
@@ -29,7 +31,9 @@ class CategoryListPage extends StatelessWidget {
       body: Consumer<CategoryProvider>(
         builder: (context, provider, child) {
           if (provider.categories.isEmpty) {
-            return const Center(child: Text('No categories found'));
+            return Center(
+              child: Text(languageProvider.translate('categoryNotFound')),
+            );
           }
 
           return ListView.builder(
@@ -70,7 +74,9 @@ class CategoryListPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
-                          category.status ? "Active" : "Passive",
+                          category.status
+                              ? languageProvider.translate('active')
+                              : languageProvider.translate('passive'),
                           style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.bold,
@@ -106,9 +112,15 @@ class CategoryListPage extends StatelessWidget {
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                title: Text("Are you sure?"),
+                                title: Text(
+                                  languageProvider.translate(
+                                    'deleteAlertTitle',
+                                  ),
+                                ),
                                 content: Text(
-                                  "Are you sure you want to delete this category?",
+                                  languageProvider.translate(
+                                    'deleteCategoryAlertText',
+                                  ),
                                 ),
                                 actionsAlignment: MainAxisAlignment.center,
                                 actions: [
@@ -116,7 +128,9 @@ class CategoryListPage extends StatelessWidget {
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    child: Text("Cancel"),
+                                    child: Text(
+                                      languageProvider.translate('cancel'),
+                                    ),
                                   ),
 
                                   const SizedBox(width: 24),
@@ -128,7 +142,9 @@ class CategoryListPage extends StatelessWidget {
                                           .deleteCategory(category.id);
                                       Navigator.pop(context);
                                     },
-                                    child: Text("Delete"),
+                                    child: Text(
+                                      languageProvider.translate('delete'),
+                                    ),
                                   ),
                                 ],
                               );

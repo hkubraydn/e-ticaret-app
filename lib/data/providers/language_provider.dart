@@ -15,7 +15,8 @@ class LanguageProvider extends ChangeNotifier {
       'password': 'Şifre',
       'loginError': 'Kullanıcı adı veya şifre yanlış!',
       'dashboard': 'Pano',
-      //---------------User add page---------------
+
+      //---------------USERS---------------
       'users': 'Kullanıcılar',
       'userAdd': 'Kullanıcı ekle',
       'userNotFound': 'Kayıtlı kullanıcı bulunamadı.',
@@ -25,13 +26,28 @@ class LanguageProvider extends ChangeNotifier {
       'userExists': 'Bu kullanıcı adı zaten kayıtlı.',
       //---------------User edit page---------------
       'userEdit': 'Kullanıcıyı düzenle',
+
       //--------------save - delete function---------------
       'save': 'Kaydet',
       'deleteAlertTitle': 'Emin misiniz?',
       'cancel': 'İptal',
       'delete': 'Sil',
 
+      //--------------CATEGORIES---------------
       'categories': 'Kategoriler',
+      'categoryAdd': 'Kategori Ekle',
+      'categoryNotFound': 'Kayıtlı kategori bulunamadı.',
+      'deleteCategoryAlertText':
+          'Bu kategoriyi silmek istediğinize emin misiniz?',
+      'active': 'Aktif',
+      'passive': 'Pasif',
+      //-------------Category add page --------------
+      'categoryTitle': 'Kategori adı',
+      'categoryDesc': 'Kategori açıklaması',
+      'categoryExists': 'Bu kategori zaten var.',
+      //-------------Category edit page -----------
+      'categoryEdit': 'Kategoriyi düzenle',
+
       'products': 'Ürünler',
     },
 
@@ -58,7 +74,21 @@ class LanguageProvider extends ChangeNotifier {
       'cancel': 'Cancel',
       'delete': 'Delete',
 
+      //--------------CATEGORIES---------------
       'categories': 'Categories',
+      'categoryAdd': 'Add Category',
+      'categoryNotFound': 'No categories found',
+      'deleteCategoryAlertText':
+          'Are you sure you want to delete this category?',
+      'active': 'Active',
+      'passive': 'Passive',
+      //-------------Category add page --------------
+      'categoryTitle': 'Category Title',
+      'categoryDesc': 'Category Description',
+      'categoryExists': 'This category already exists.',
+      //-------------Category edit page -----------
+      'categoryEdit': 'Edit Category',
+
       'products': 'Products',
     },
   };

@@ -4,6 +4,7 @@ import 'package:hello/core/validators/category_validator.dart';
 import 'package:hello/data/models/category_model.dart';
 import 'package:hello/data/providers/category_provider.dart';
 import 'package:provider/provider.dart';
+import '../../data/providers/language_provider.dart';
 
 class CategoryEditPage extends StatefulWidget {
   final CategoryModel category;
@@ -44,8 +45,9 @@ class _CategoryEditPage extends State<CategoryEditPage> {
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
     return Scaffold(
-      appBar: AppBar(title: Text("Edit Category")),
+      appBar: AppBar(title: Text(languageProvider.translate('categoryEdit'))),
       body: SafeArea(
         child: Form(
           key: _formKey,
@@ -54,7 +56,7 @@ class _CategoryEditPage extends State<CategoryEditPage> {
               //title
               MyTextfield(
                 controller: _categoryController,
-                hintText: "Title",
+                hintText: languageProvider.translate('categoryTitle'),
                 obscureText: false,
                 validator: CategoryValidator().validateCategoryTitle,
               ),
@@ -62,7 +64,7 @@ class _CategoryEditPage extends State<CategoryEditPage> {
               //description
               MyTextfield(
                 controller: _descriptionController,
-                hintText: "Description",
+                hintText: languageProvider.translate('categoryDesc'),
                 obscureText: false,
                 validator: CategoryValidator().validateCategoryDesc,
               ),
@@ -72,7 +74,7 @@ class _CategoryEditPage extends State<CategoryEditPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Row(
                   children: [
-                    const Text("Passive"),
+                    Text(languageProvider.translate('passive')),
                     Switch(
                       value: status,
                       onChanged: (value) {
@@ -81,7 +83,7 @@ class _CategoryEditPage extends State<CategoryEditPage> {
                         });
                       },
                     ),
-                    const Text("Active"),
+                    Text(languageProvider.translate('active')),
                   ],
                 ),
               ),
@@ -100,8 +102,10 @@ class _CategoryEditPage extends State<CategoryEditPage> {
                     categoryId,
                   )) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("This category already exists."),
+                      SnackBar(
+                        content: Text(
+                          languageProvider.translate('categoryExists'),
+                        ),
                       ),
                     );
                     return;
@@ -119,7 +123,7 @@ class _CategoryEditPage extends State<CategoryEditPage> {
                   );
                   Navigator.pop(context);
                 },
-                child: Text("Edit Category"),
+                child: Text(languageProvider.translate('save')),
               ),
             ],
           ),
