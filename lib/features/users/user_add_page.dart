@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import '../../data/providers/language_provider.dart';
 import '../../core/component/my_textfield.dart';
 import '../../core/validators/user_validator.dart';
 import '../../data/models/user_model.dart';
@@ -31,8 +31,9 @@ class _UserAddPage extends State<UserAddPage> {
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
     return Scaffold(
-      appBar: AppBar(title: Text('Add User')),
+      appBar: AppBar(title: Text(languageProvider.translate('userAdd'))),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
@@ -43,7 +44,7 @@ class _UserAddPage extends State<UserAddPage> {
                 //username
                 MyTextfield(
                   controller: _usernameController,
-                  hintText: "Username",
+                  hintText: languageProvider.translate('username'),
                   validator: UserValidator().validateUsername,
                   obscureText: false,
                 ),
@@ -51,7 +52,7 @@ class _UserAddPage extends State<UserAddPage> {
                 //user title
                 MyTextfield(
                   controller: _userTitleController,
-                  hintText: "User Title",
+                  hintText: languageProvider.translate('userTitle'),
                   validator: UserValidator().validateUserTitle,
                   obscureText: false,
                 ),
@@ -59,7 +60,7 @@ class _UserAddPage extends State<UserAddPage> {
                 //password
                 MyTextfield(
                   controller: _passwordController,
-                  hintText: "Password",
+                  hintText: languageProvider.translate('password'),
                   validator: UserValidator().validatePassword,
                   obscureText: isPasswordHidden,
                   suffixIcon: IconButton(
@@ -87,8 +88,10 @@ class _UserAddPage extends State<UserAddPage> {
 
                     if (!userProvider.isUsernameUnique(username, null)) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Bu kullanıcı adı zaten kayıtlı'),
+                        SnackBar(
+                          content: Text(
+                            languageProvider.translate('userExists'),
+                          ),
                         ),
                       );
                       return;
@@ -104,7 +107,7 @@ class _UserAddPage extends State<UserAddPage> {
 
                     Navigator.pop(context);
                   },
-                  child: const Text("Add User"),
+                  child: Text(languageProvider.translate('save')),
                 ),
               ],
             ),

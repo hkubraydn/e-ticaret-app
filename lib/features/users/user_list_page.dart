@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../data/providers/user_provider.dart';
 import '../users/user_add_page.dart';
 import '../users/user_edit_page.dart';
+import '../../data/providers/language_provider.dart';
 
 /*Bu ekran Providerdaki kullanıcıları ekranda liste olarak gösterir.*/
 
@@ -12,11 +13,12 @@ class UserListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
     //bu sayfa nasıl görünecek kısmı
     return Scaffold(
       //sayfa iskeleti
       appBar: AppBar(
-        title: const Text('Users'),
+        title: Text(languageProvider.translate('users')),
         actions: [
           IconButton(
             onPressed: () {
@@ -26,7 +28,7 @@ class UserListPage extends StatelessWidget {
               );
             },
             icon: const Icon(Icons.add),
-            tooltip: 'Add User',
+            tooltip: languageProvider.translate('userAdd'),
           ),
         ],
       ),
@@ -35,7 +37,9 @@ class UserListPage extends StatelessWidget {
         //UserProviderda users listesini dinler, liste değişirse Bu ekranı güncelliyor.
         builder: (context, provider, child) {
           if (provider.users.isEmpty) {
-            return const Center(child: Text('No users found'));
+            return Center(
+              child: Text(languageProvider.translate('userNotFound')),
+            );
           }
 
           return ListView.builder(
@@ -91,9 +95,15 @@ class UserListPage extends StatelessWidget {
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                title: Text("Are you sure?"),
+                                title: Text(
+                                  languageProvider.translate(
+                                    'deleteAlertTitle',
+                                  ),
+                                ),
                                 content: Text(
-                                  "Are you sure you want to delete this user?",
+                                  languageProvider.translate(
+                                    'deleteUserAlertText',
+                                  ),
                                 ),
                                 actionsAlignment: MainAxisAlignment.center,
                                 actions: [
@@ -101,7 +111,9 @@ class UserListPage extends StatelessWidget {
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    child: Text("Cancel"),
+                                    child: Text(
+                                      languageProvider.translate('cancel'),
+                                    ),
                                   ),
 
                                   const SizedBox(width: 24),
@@ -114,7 +126,9 @@ class UserListPage extends StatelessWidget {
                                       );
                                       Navigator.pop(context);
                                     },
-                                    child: Text("Delete"),
+                                    child: Text(
+                                      languageProvider.translate('delete'),
+                                    ),
                                   ),
                                 ],
                               );

@@ -15,10 +15,26 @@ class LanguageProvider extends ChangeNotifier {
       'password': 'Şifre',
       'loginError': 'Kullanıcı adı veya şifre yanlış!',
       'dashboard': 'Pano',
+      //---------------User add page---------------
       'users': 'Kullanıcılar',
+      'userAdd': 'Kullanıcı ekle',
+      'userNotFound': 'Kayıtlı kullanıcı bulunamadı.',
+      'deleteUserAlertText': 'Bu kullanıcıyı silmek istediğinize emin misiniz?',
+      //---------------User add page---------------
+      'userTitle': 'Ünvan',
+      'userExists': 'Bu kullanıcı adı zaten kayıtlı.',
+      //---------------User edit page---------------
+      'userEdit': 'Kullanıcıyı düzenle',
+      //--------------save - delete function---------------
+      'save': 'Kaydet',
+      'deleteAlertTitle': 'Emin misiniz?',
+      'cancel': 'İptal',
+      'delete': 'Sil',
+
       'categories': 'Kategoriler',
       'products': 'Ürünler',
     },
+
     'en': {
       'loginTitle': 'Login',
       'welcomeMessage': 'Welcome, it\'s nice to see you again!',
@@ -26,7 +42,22 @@ class LanguageProvider extends ChangeNotifier {
       'password': 'Password',
       'loginError': 'Username or password is wrong!',
       'dashboard': 'Dashboard',
+      //---------------USERS---------------
       'users': 'Users',
+      'userAdd': 'Add User',
+      'userNotFound': 'No users found.',
+      'deleteUserAlertText': 'Are you sure you want to delete this user?',
+      //---------------User add page---------------
+      'userTitle': 'Title',
+      'userExists': 'This user already exists.',
+      //---------------User edit page---------------
+      'userEdit': 'Edit user',
+      //--------------save - delete function---------------
+      'save': 'Save',
+      'deleteAlertTitle': 'Are you sure?',
+      'cancel': 'Cancel',
+      'delete': 'Delete',
+
       'categories': 'Categories',
       'products': 'Products',
     },

@@ -4,6 +4,7 @@ import 'package:hello/core/validators/user_validator.dart';
 import 'package:hello/data/models/user_model.dart';
 import 'package:hello/data/providers/user_provider.dart';
 import 'package:provider/provider.dart';
+import '../../data/providers/language_provider.dart';
 
 class UserEditPage extends StatefulWidget {
   final UserModel user;
@@ -41,8 +42,9 @@ class _UserEditPage extends State<UserEditPage> {
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
     return Scaffold(
-      appBar: AppBar(title: Text("Edit User")),
+      appBar: AppBar(title: Text(languageProvider.translate('userEdit'))),
       body: SafeArea(
         child: Form(
           key: _formKey,
@@ -52,7 +54,7 @@ class _UserEditPage extends State<UserEditPage> {
               //username
               MyTextfield(
                 controller: _usernameController,
-                hintText: "Username",
+                hintText: languageProvider.translate('username'),
                 validator: UserValidator().validateUsername,
                 obscureText: false,
               ),
@@ -60,7 +62,7 @@ class _UserEditPage extends State<UserEditPage> {
               //usertitle
               MyTextfield(
                 controller: _userTitleController,
-                hintText: "User Title",
+                hintText: languageProvider.translate('userTitle'),
                 validator: UserValidator().validateUserTitle,
                 obscureText: false,
               ),
@@ -68,7 +70,7 @@ class _UserEditPage extends State<UserEditPage> {
               //password
               MyTextfield(
                 controller: _passwordController,
-                hintText: "Password",
+                hintText: languageProvider.translate('password'),
                 validator: UserValidator().validatePassword,
                 obscureText: isPasswordHidden,
                 suffixIcon: IconButton(
@@ -95,8 +97,8 @@ class _UserEditPage extends State<UserEditPage> {
 
                   if (!userProvider.isUsernameUnique(username, userId)) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Bu kullanıcı adı zaten kayıtlı'),
+                      SnackBar(
+                        content: Text(languageProvider.translate('userExists')),
                       ),
                     );
                     return;
@@ -114,7 +116,7 @@ class _UserEditPage extends State<UserEditPage> {
 
                   Navigator.pop(context);
                 },
-                child: Text("Edit User"),
+                child: Text(languageProvider.translate('save')),
               ),
             ],
           ),
