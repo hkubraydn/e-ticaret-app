@@ -3,7 +3,6 @@ import 'package:hello/features/categories/category_list_page.dart';
 import 'package:hello/features/products/product_list_page.dart';
 import 'package:hello/features/users/user_list_page.dart';
 import 'package:provider/provider.dart';
-//import '../../features/users/user_add_page.dart';
 import '../../data/providers/language_provider.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -16,8 +15,9 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPage extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
     return Scaffold(
-      appBar: AppBar(title: Text("Dashboard")),
+      appBar: AppBar(title: Text(languageProvider.translate('dashboard'))),
       body: SafeArea(
         child: Center(
           child: Column(
@@ -33,7 +33,7 @@ class _DashboardPage extends State<DashboardPage> {
                     ),
                   );
                 },
-                child: Text("Users"),
+                child: Text(languageProvider.translate('users')),
               ),
 
               ElevatedButton(
@@ -46,7 +46,7 @@ class _DashboardPage extends State<DashboardPage> {
                     ),
                   );
                 },
-                child: Text("Categories"),
+                child: Text(languageProvider.translate('categories')),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -58,7 +58,7 @@ class _DashboardPage extends State<DashboardPage> {
                     ),
                   );
                 },
-                child: Text("Products"),
+                child: Text(languageProvider.translate('products')),
               ),
               IconButton(
                 icon: const Icon(Icons.language),

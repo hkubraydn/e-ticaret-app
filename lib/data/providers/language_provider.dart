@@ -14,6 +14,10 @@ class LanguageProvider extends ChangeNotifier {
       'username': 'Kullanıcı adı',
       'password': 'Şifre',
       'loginError': 'Kullanıcı adı veya şifre yanlış!',
+      'dashboard': 'Pano',
+      'users': 'Kullanıcılar',
+      'categories': 'Kategoriler',
+      'products': 'Ürünler',
     },
     'en': {
       'loginTitle': 'Login',
@@ -21,6 +25,10 @@ class LanguageProvider extends ChangeNotifier {
       'username': 'Username',
       'password': 'Password',
       'loginError': 'Username or password is wrong!',
+      'dashboard': 'Dashboard',
+      'users': 'Users',
+      'categories': 'Categories',
+      'products': 'Products',
     },
   };
 
