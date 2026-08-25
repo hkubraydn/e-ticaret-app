@@ -7,12 +7,14 @@ import 'package:provider/provider.dart';
 import 'features/auth/login_page.dart';
 import 'package:hello/data/providers/category_provider.dart';
 import 'package:hello/data/repositories/category_repository.dart';
+import 'data/providers/language_provider.dart';
 
 void main() {
   //main() fonksiyonu uygulama çalıştığında dartın ilk çalıştırdığı fonksiyon.
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => LanguageProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider(UserRepository())),
         ChangeNotifierProvider(
           create: (_) => CategoryProvider(CategoryRepository()),
@@ -34,10 +36,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
     //Widget, build fonksiyonun ne tür bir şey döndürceğini söyler. build ise Widgetın ekranda nasıl dönüceğini söyler.
     //'BuildContext context' build fonksiyonuna verilen bilgidir: Bu widget şuanda nerede bilgisini taşır.  Widget ağacı arasındaki ilişkiyi bilir.
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      locale: languageProvider.currentLocale,
       home: LoginPage(),
     ); //MyAppin nasıl görüleceğini belirler.
   }

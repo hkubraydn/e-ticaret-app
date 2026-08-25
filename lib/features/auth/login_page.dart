@@ -4,6 +4,7 @@ import '../../core/component/my_textfield.dart';
 import '../../core/validators/user_validator.dart';
 import '../../data/providers/user_provider.dart';
 import 'package:provider/provider.dart';
+import '../../data/providers/language_provider.dart';
 
 class LoginPage extends StatefulWidget {
   //Controller olduğu için stateful yapmak daha mantıklı.
@@ -43,6 +44,8 @@ _LoginPageState: Login ekranına ait geçici değişiklikleri tutar.
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = context.read<LanguageProvider>();
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 230, 255, 233),
       body: SafeArea(
@@ -63,7 +66,7 @@ _LoginPageState: Login ekranına ait geçici değişiklikleri tutar.
 
                   //welcome text
                   Text(
-                    'Welcome back, it\'s good to see you again!',
+                    languageProvider.translate('welcomeMessage'),
                     style: TextStyle(
                       color: Color.fromARGB(255, 0, 95, 0),
                       fontSize: 16,
@@ -74,7 +77,7 @@ _LoginPageState: Login ekranına ait geçici değişiklikleri tutar.
                   MyTextfield(
                     controller: usernameController,
                     validator: UserValidator().validateUsername,
-                    hintText: 'Username',
+                    hintText: languageProvider.translate('username'),
                     obscureText: false,
                   ),
 
@@ -82,7 +85,7 @@ _LoginPageState: Login ekranına ait geçici değişiklikleri tutar.
                   MyTextfield(
                     controller: passwordController,
                     validator: UserValidator().validatePassword,
-                    hintText: 'Password',
+                    hintText: languageProvider.translate('password'),
                     obscureText: isPasswordHidden,
                     suffixIcon: IconButton(
                       icon: Icon(
@@ -110,7 +113,6 @@ _LoginPageState: Login ekranına ait geçici değişiklikleri tutar.
 
                       final userProvider = context.read<UserProvider>();
                       //context.read<UserProvider>() user provider'da istediği fonksiyonu kullanır. Daha sonra providerda herhangi başka bir değişiklik olursa uyarılmaz
-
                       final user = userProvider.login(username, password);
                       //username ve password, providera gönderilir, providersa repoya gönderir. Repositoryde login işlemi yapılır
                       /*UserModel? login(String username, String password) {
@@ -132,13 +134,15 @@ _LoginPageState: Login ekranına ait geçici değişiklikleri tutar.
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("Username or password is wrong!"),
+                          SnackBar(
+                            content: Text(
+                              languageProvider.translate('loginError'),
+                            ),
                           ),
                         );
                       }
                     },
-                    child: const Text("Login"),
+                    child: Text(languageProvider.translate('loginTitle')),
                   ),
                 ],
               ),
