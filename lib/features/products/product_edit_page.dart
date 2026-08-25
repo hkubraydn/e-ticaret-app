@@ -5,6 +5,7 @@ import '../../data/models/product_model.dart';
 import '../../data/providers/product_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:hello/data/providers/category_provider.dart';
+import '../../data/providers/language_provider.dart';
 
 class ProductEditPage extends StatefulWidget {
   final ProductModel product;
@@ -41,8 +42,10 @@ class _ProductEditPage extends State<ProductEditPage> {
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
+
     return Scaffold(
-      appBar: AppBar(title: Text("Edit Product")),
+      appBar: AppBar(title: Text(languageProvider.translate('productEdit'))),
       body: SafeArea(
         child: Form(
           key: _formKey,
@@ -51,7 +54,7 @@ class _ProductEditPage extends State<ProductEditPage> {
               //Name
               MyTextfield(
                 controller: _nameController,
-                hintText: "Product name",
+                hintText: languageProvider.translate('productTitle'),
                 obscureText: false,
                 validator: ProductValidator().validateName,
               ),
@@ -59,7 +62,7 @@ class _ProductEditPage extends State<ProductEditPage> {
               //Barcode
               MyTextfield(
                 controller: _barcodeController,
-                hintText: "Barcode",
+                hintText: languageProvider.translate('productBarcode'),
                 obscureText: false,
                 validator: ProductValidator().validateBarcode,
               ),
@@ -71,12 +74,14 @@ class _ProductEditPage extends State<ProductEditPage> {
                     // ignore: deprecated_member_use
                     value: selectedCategoryId,
                     menuMaxHeight: 250,
-                    decoration: const InputDecoration(labelText: "Category"),
+                    decoration: InputDecoration(
+                      labelText: languageProvider.translate('productCategory'),
+                    ),
                     // isExpanded: true,
                     items: [
-                      const DropdownMenuItem<int?>(
+                      DropdownMenuItem<int?>(
                         value: null,
-                        child: Text("No Category"),
+                        child: Text(languageProvider.translate('noCategory')),
                       ),
 
                       ...context.watch<CategoryProvider>().categories.map((
@@ -102,7 +107,7 @@ class _ProductEditPage extends State<ProductEditPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Row(
                   children: [
-                    const Text("Passive"),
+                    Text(languageProvider.translate('passive')),
                     Switch(
                       value: status,
                       onChanged: (value) {
@@ -111,7 +116,7 @@ class _ProductEditPage extends State<ProductEditPage> {
                         });
                       },
                     ),
-                    const Text("Active"),
+                    Text(languageProvider.translate('active')),
                   ],
                 ),
               ),
@@ -131,9 +136,9 @@ class _ProductEditPage extends State<ProductEditPage> {
                     widget.product.id,
                   )) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
+                      SnackBar(
                         content: Text(
-                          "A product with this barcode already exists.",
+                          languageProvider.translate('productExists'),
                         ),
                       ),
                     );
@@ -151,7 +156,7 @@ class _ProductEditPage extends State<ProductEditPage> {
                   productProvider.updateProduct(updatedProduct);
                   Navigator.pop(context);
                 },
-                child: const Text("Update Product"),
+                child: Text(languageProvider.translate('save')),
               ),
             ],
           ),

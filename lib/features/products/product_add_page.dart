@@ -8,6 +8,7 @@ import '../../data/models/product_model.dart';
 // ignore: unused_import
 import '../../data/providers/product_provider.dart';
 import '../../data/providers/category_provider.dart';
+import '../../data/providers/language_provider.dart';
 
 class ProductAddPage extends StatefulWidget {
   const ProductAddPage({super.key});
@@ -32,8 +33,9 @@ class _ProductAddPage extends State<ProductAddPage> {
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
     return Scaffold(
-      appBar: AppBar(title: Text("Add Product")),
+      appBar: AppBar(title: Text(languageProvider.translate('productAdd'))),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
@@ -45,7 +47,7 @@ class _ProductAddPage extends State<ProductAddPage> {
                   //Name
                   MyTextfield(
                     controller: _productController,
-                    hintText: "Product Name",
+                    hintText: languageProvider.translate('productTitle'),
                     obscureText: false,
                     validator: ProductValidator().validateName,
                   ),
@@ -53,7 +55,7 @@ class _ProductAddPage extends State<ProductAddPage> {
                   // barcode
                   MyTextfield(
                     controller: _barcodeController,
-                    hintText: "Barcode",
+                    hintText: languageProvider.translate('productBarcode'),
                     obscureText: false,
                     validator: ProductValidator().validateBarcode,
                   ),
@@ -65,14 +67,18 @@ class _ProductAddPage extends State<ProductAddPage> {
                         // ignore: deprecated_member_use
                         value: selectedCategoryId,
                         menuMaxHeight: 250,
-                        decoration: const InputDecoration(
-                          labelText: "Category",
+                        decoration: InputDecoration(
+                          labelText: languageProvider.translate(
+                            'productCategory',
+                          ),
                         ),
                         // isExpanded: true,
                         items: [
-                          const DropdownMenuItem<int?>(
+                          DropdownMenuItem<int?>(
                             value: null,
-                            child: Text("No Category"),
+                            child: Text(
+                              languageProvider.translate('noCategory'),
+                            ),
                           ),
 
                           ...context.watch<CategoryProvider>().categories.map((
@@ -98,7 +104,7 @@ class _ProductAddPage extends State<ProductAddPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Row(
                       children: [
-                        const Text("Passive"),
+                        Text(languageProvider.translate('passive')),
                         Switch(
                           value: status,
                           onChanged: (value) {
@@ -107,7 +113,7 @@ class _ProductAddPage extends State<ProductAddPage> {
                             });
                           },
                         ),
-                        const Text("Active"),
+                        Text(languageProvider.translate('active')),
                       ],
                     ),
                   ),
@@ -124,9 +130,9 @@ class _ProductAddPage extends State<ProductAddPage> {
 
                       if (!productProvider.isProductUnique(barcode, null)) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
+                          SnackBar(
                             content: Text(
-                              "A product with this barcode already exists.",
+                              languageProvider.translate('productExists'),
                             ),
                           ),
                         );
@@ -145,7 +151,7 @@ class _ProductAddPage extends State<ProductAddPage> {
 
                       Navigator.pop(context);
                     },
-                    child: Text("Add Product"),
+                    child: Text(languageProvider.translate('productAdd')),
                   ),
                 ],
               ),

@@ -5,6 +5,7 @@ import '../../data/providers/product_provider.dart';
 import '../../data/providers/category_provider.dart';
 import '../products/product_add_page.dart';
 import '../products/product_edit_page.dart';
+import '../../data/providers/language_provider.dart';
 
 class ProductListPage extends StatefulWidget {
   const ProductListPage({super.key});
@@ -16,9 +17,10 @@ class ProductListPage extends StatefulWidget {
 class _ProductListPage extends State<ProductListPage> {
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Products"),
+        title: Text(languageProvider.translate('products')),
         actions: [
           IconButton(
             onPressed: () {
@@ -34,7 +36,9 @@ class _ProductListPage extends State<ProductListPage> {
       body: Consumer<ProductProvider>(
         builder: (context, provider, child) {
           if (provider.products.isEmpty) {
-            return const Center(child: Text("No product found"));
+            return Center(
+              child: Text(languageProvider.translate('productNotFound')),
+            );
           }
 
           return ListView.builder(
@@ -54,7 +58,7 @@ class _ProductListPage extends State<ProductListPage> {
                         children: [
                           Text(
                             product.productCategoryId == null
-                                ? "No category"
+                                ? languageProvider.translate('noCategory')
                                 : context
                                       .read<CategoryProvider>()
                                       .categories
@@ -75,14 +79,18 @@ class _ProductListPage extends State<ProductListPage> {
                                     return StatefulBuilder(
                                       builder: (context, setDialogState) {
                                         return AlertDialog(
-                                          title: const Text(
-                                            "Choose a category",
+                                          title: Text(
+                                            languageProvider.translate(
+                                              'chooseCategory',
+                                            ),
                                           ),
                                           content: DropdownButton<int?>(
                                             isExpanded: true,
                                             value: selectedId,
-                                            hint: const Text(
-                                              "Choose a category",
+                                            hint: Text(
+                                              languageProvider.translate(
+                                                'chooseCategory',
+                                              ),
                                             ),
                                             items: context
                                                 .read<CategoryProvider>()
@@ -107,7 +115,11 @@ class _ProductListPage extends State<ProductListPage> {
                                               onPressed: () {
                                                 Navigator.pop(context);
                                               },
-                                              child: const Text("Cancel"),
+                                              child: Text(
+                                                languageProvider.translate(
+                                                  'cancel',
+                                                ),
+                                              ),
                                             ),
                                             TextButton(
                                               onPressed: () {
@@ -131,7 +143,11 @@ class _ProductListPage extends State<ProductListPage> {
 
                                                 Navigator.pop(context);
                                               },
-                                              child: const Text("Add"),
+                                              child: Text(
+                                                languageProvider.translate(
+                                                  'save',
+                                                ),
+                                              ),
                                             ),
                                           ],
                                         );
@@ -141,7 +157,9 @@ class _ProductListPage extends State<ProductListPage> {
                                 );
                               },
 
-                              child: Text("Add Category"),
+                              child: Text(
+                                languageProvider.translate('categoryAdd'),
+                              ),
                             ),
                         ],
                       ),
@@ -162,7 +180,9 @@ class _ProductListPage extends State<ProductListPage> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
-                          product.status ? "Active" : "Passive",
+                          product.status
+                              ? languageProvider.translate('active')
+                              : languageProvider.translate('passive'),
                           style: TextStyle(
                             color: product.status
                                 ? Colors.green.shade700
@@ -196,9 +216,15 @@ class _ProductListPage extends State<ProductListPage> {
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                title: Text("Are you sure?"),
+                                title: Text(
+                                  languageProvider.translate(
+                                    'deleteAlertTitle',
+                                  ),
+                                ),
                                 content: Text(
-                                  "Are you sure you want to delete this product?",
+                                  languageProvider.translate(
+                                    'deleteProductAlertText',
+                                  ),
                                 ),
                                 actionsAlignment: MainAxisAlignment.center,
                                 actions: [
@@ -206,7 +232,9 @@ class _ProductListPage extends State<ProductListPage> {
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    child: Text("Cancel"),
+                                    child: Text(
+                                      languageProvider.translate('cancel'),
+                                    ),
                                   ),
 
                                   const SizedBox(width: 24),
@@ -219,7 +247,9 @@ class _ProductListPage extends State<ProductListPage> {
 
                                       Navigator.pop(context);
                                     },
-                                    child: Text("Delete"),
+                                    child: Text(
+                                      languageProvider.translate('delete'),
+                                    ),
                                   ),
                                 ],
                               );

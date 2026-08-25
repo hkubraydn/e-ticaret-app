@@ -48,7 +48,20 @@ class LanguageProvider extends ChangeNotifier {
       //-------------Category edit page -----------
       'categoryEdit': 'Kategoriyi düzenle',
 
+      //-------------PRODUCTS-----------
       'products': 'Ürünler',
+      'productNotFound': 'Kayıtlı ürün bulunamadı.',
+      'noCategory': 'Kategori yok',
+      'chooseCategory': 'Kategori seç',
+      'deleteProductAlertText': 'Bu ürünü silmek istediğinize emin misiniz?',
+      //------------Product add page------------
+      'productAdd': 'Ürün Ekle',
+      'productTitle': 'Ürün Adı',
+      'productBarcode': 'Ürün Barkodu',
+      'productCategory': 'Ürün Kategorisi',
+      'productExists': 'Bu barkoda sahip bir ürün zaten var.',
+      //-----------Product edit page------------
+      'productEdit': 'Ürünü düzenle',
     },
 
     'en': {
@@ -67,7 +80,8 @@ class LanguageProvider extends ChangeNotifier {
       'userTitle': 'Title',
       'userExists': 'This user already exists.',
       //---------------User edit page---------------
-      'userEdit': 'Edit user',
+      'userEdit': 'Edit User',
+
       //--------------save - delete function---------------
       'save': 'Save',
       'deleteAlertTitle': 'Are you sure?',
@@ -89,7 +103,20 @@ class LanguageProvider extends ChangeNotifier {
       //-------------Category edit page -----------
       'categoryEdit': 'Edit Category',
 
+      //-------------PRODUCTS-----------
       'products': 'Products',
+      'productNotFound': 'No products found',
+      'noCategory': 'No Category',
+      'chooseCategory': 'Choose a category',
+      'deleteProductAlertText': 'Are you sure you want to delete this product?',
+      //------------Product add page------------
+      'productAdd': 'Add Product',
+      'productTitle': 'Product Title',
+      'productBarcode': 'Product Barcode',
+      'productCategory': 'Product Category',
+      'productExists': 'A product with this barcode already exists.',
+      //-----------Product edit page------------
+      'productEdit': 'Edit Product',
     },
   };
 
