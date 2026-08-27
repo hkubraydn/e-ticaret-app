@@ -6,7 +6,7 @@ class CategoryValidator {
     if (value.length < 3) {
       return "Category title must be at least 3 characters long";
     }
-    if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(value)) {
+    if (!RegExp(r'^[a-zA-ZçğıöşüÇĞİÖŞÜ0-9_]+$').hasMatch(value)) {
       return "Category title can only contain letters, numbers, and underscores";
     }
     return null;
